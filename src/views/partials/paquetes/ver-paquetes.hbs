@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Lista de Paquetes</h1>
+
+  {{#if paquetes}}
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Turno</th>
+          <th>Cantidad de Registros</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each paquetes}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{formatDate this.date}}</td>
+            <td>{{this.shift}}</td>
+            <td>{{this.register_amount}}</td>
+            <td>
+              <a
+                href="/paquetes/{{this.id}}"
+                class="btn btn-sm btn-info"
+              >Ver</a>
+              <a
+                href="/paquetes/edit/{{this.id}}"
+                class="btn btn-sm btn-warning"
+              >Editar</a>
+              <button
+                class="btn btn-sm btn-danger"
+                onclick="deletePaquete({{this.id}})"
+              >Eliminar</button>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p class="alert alert-info">No hay paquetes para mostrar.</p>
+    <a href="/crear-paquete">Crear un paquete</a>
+  {{/if}}
+</div>
+
+<script>
+  function deletePaquete(id) { if (confirm('¿Está seguro de que desea eliminar
+  este paquete?')) { fetch(`/paquetes/${id}`, { method: 'DELETE' })
+  .then(response => response.json()) .then(data => { if (data.success) {
+  location.reload(); } else { alert('Error al eliminar el paquete'); } })
+  .catch(error => console.error('Error:', error)); } }
+</script>

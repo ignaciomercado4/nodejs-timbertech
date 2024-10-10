@@ -1,0 +1,23 @@
+<article
+  class="d-flex justify-content-center align-items-center vh-100 bg-light"
+>
+  <div class="text-center">
+    <h1 class="display-4 mb-4">Crear Paquete</h1>
+    <form method="POST" action="" id="form-crear-paquete" class="mb-4">
+      <div class="mb-3">
+        <label for="date" class="form-label">Fecha:</label>
+        <input type="date" class="form-control" name="date" />
+      </div>
+
+      <div class="mb-3">
+        <label for="shift" class="form-label">Turno:</label>
+        <select name="shift">
+          <option value="M">Mañana</option>
+          <option value="T">Tarde</option>
+          <option value="Noche">Noche</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-outline-dark btn-lg">Crear paquete</button>
+    </form>
+  </div>
+</article>
