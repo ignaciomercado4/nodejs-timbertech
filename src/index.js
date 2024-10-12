@@ -1,7 +1,6 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import { join, dirname } from 'path';
-import { join, dirname } from 'path';
 import morgan from "morgan";
 import { engine } from "express-handlebars";
 import { sequelize } from './database.js';

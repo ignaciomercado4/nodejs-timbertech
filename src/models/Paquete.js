@@ -7,7 +7,7 @@ const Paquete = sequelize.define('Paquete', {
         allowNull: false
     },
     shift: {
-        type: DataTypes.ENUM('M', 'T', 'Noche'),
+        type: DataTypes.ENUM('M', 'T', 'N'),
         allowNull: false
     }
 });

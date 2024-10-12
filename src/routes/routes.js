@@ -15,12 +15,14 @@ router.get('/', (req, res) => {
 router.get('/ver-paquetes', async (req, res) => {
     try {
         const paquetesExistentes = await Paquete.findAll();
-        console.log('Paquetes en el servidor:', JSON.stringify(paquetesExistentes, null, 2));
         res.render('partials/paquetes/ver-paquetes', {
             paquetes: paquetesExistentes,
             helpers: {
                 json: function (context) {
                     return JSON.stringify(context, null, 2);
+                },
+                eq: function (v1, v2) {
+                    return v1 === v2;
                 }
             }
         });
