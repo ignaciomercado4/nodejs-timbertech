@@ -1,6 +1,7 @@
 <div class="container mt-5">
   <h1 class="mb-4">Lista de Paquetes</h1>
 
+  <pre>{{json paquetes}}</pre>
   {{#if paquetes}}
     <table class="table table-striped table-hover">
       <thead class="table-dark">
@@ -8,7 +9,6 @@
           <th>ID</th>
           <th>Fecha</th>
           <th>Turno</th>
-          <th>Cantidad de Registros</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -16,22 +16,12 @@
         {{#each paquetes}}
           <tr>
             <td>{{this.id}}</td>
-            <td>{{formatDate this.date}}</td>
-            <td>{{this.shift}}</td>
-            <td>{{this.register_amount}}</td>
+            <td>Imagina q es una fecha</td>
+            <td>Imagina q es un turno</td>
             <td>
-              <a
-                href="/paquetes/{{this.id}}"
-                class="btn btn-sm btn-info"
-              >Ver</a>
-              <a
-                href="/paquetes/edit/{{this.id}}"
-                class="btn btn-sm btn-warning"
-              >Editar</a>
-              <button
-                class="btn btn-sm btn-danger"
-                onclick="deletePaquete({{this.id}})"
-              >Eliminar</button>
+              <a href="" class="btn btn-sm btn-info">Ver</a>
+              <a href="" class="btn btn-sm btn-warning">Editar</a>
+              <button class="btn btn-sm btn-danger" onclick="">Eliminar</button>
             </td>
           </tr>
         {{/each}}
@@ -44,9 +34,6 @@
 </div>
 
 <script>
-  function deletePaquete(id) { if (confirm('¿Está seguro de que desea eliminar
-  este paquete?')) { fetch(`/paquetes/${id}`, { method: 'DELETE' })
-  .then(response => response.json()) .then(data => { if (data.success) {
-  location.reload(); } else { alert('Error al eliminar el paquete'); } })
-  .catch(error => console.error('Error:', error)); } }
+  var paquetes =
+  {{{json paquetes}}}; console.log('Paquetes en el cliente:', paquetes);
 </script>

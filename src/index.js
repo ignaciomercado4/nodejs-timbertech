@@ -1,11 +1,11 @@
 import express from "express";
 import { fileURLToPath } from "url";
-import {
-    join,
-    dirname
-} from 'path';
+import { join, dirname } from 'path';
 import morgan from "morgan";
 import { engine } from "express-handlebars";
+import { sequelize } from './database.js';
+import { Paquete } from "./models/Paquete.js";
+import routes from './routes/paquetes.routes.js';
 
 // init
 const app = express();
@@ -28,19 +28,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // routes
+app.use(routes);
 
 /* HOME */
 app.get('/', (req, res) => {
     res.render('index');
-});
-
-/* PAQUETES*/
-app.get('/ver-paquetes', (req, res) => {
-    res.render('partials/paquetes/ver-paquetes');
-});
-
-app.get('/crear-paquete', (req, res) => {
-    res.render('partials/paquetes/crear-paquete');
 });
 
 /* REGISTROS */
@@ -50,6 +42,12 @@ app.get('/crear-registro', (req, res) => {
 
 // public files
 app.use(express.static(join(__dirname, 'public')));
+
+sequelize.sync().then(() => {
+    console.log('Base de datos sincronizada');
+}).catch((error) => {
+    console.error('Error al sincronizar la base de datos:', error);
+});
 
 // run server
 app.listen(app.get('port'), () => {
