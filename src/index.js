@@ -4,8 +4,7 @@ import { join, dirname } from 'path';
 import morgan from "morgan";
 import { engine } from "express-handlebars";
 import { sequelize } from './database.js';
-import { Paquete } from "./models/Paquete.js";
-import routes from './routes/paquetes.routes.js';
+import routes from './routes/routes.js';
 
 // init
 const app = express();
@@ -29,16 +28,6 @@ app.use(express.json());
 
 // routes
 app.use(routes);
-
-/* HOME */
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
-/* REGISTROS */
-app.get('/crear-registro', (req, res) => {
-    res.render('partials/registros/crear-registro');
-});
 
 // public files
 app.use(express.static(join(__dirname, 'public')));

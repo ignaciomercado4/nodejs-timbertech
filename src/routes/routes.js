@@ -3,6 +3,15 @@ import { Paquete } from '../models/Paquete.js';
 
 const router = express.Router();
 
+// index
+
+router.get('/', (req, res) => {
+    res.render('index');
+});
+
+
+// paquetes
+
 router.get('/ver-paquetes', async (req, res) => {
     try {
         const paquetesExistentes = await Paquete.findAll();
@@ -20,6 +29,14 @@ router.get('/ver-paquetes', async (req, res) => {
         res.status(500).send('Error al buscar paquetes');
     }
 });
+
+router.get('/crear-paquete', (req, res) => {
+    try {
+        res.render('partials/paquetes/crear-paquete')
+    } catch (error) {
+
+    }
+})
 
 router.post('/crear-paquete', async (req, res) => {
     try {
