@@ -1,6 +1,7 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import { join, dirname } from 'path';
+import { join, dirname } from 'path';
 import morgan from "morgan";
 import { engine } from "express-handlebars";
 import { sequelize } from './database.js';
@@ -31,6 +32,12 @@ app.use(routes);
 
 // public files
 app.use(express.static(join(__dirname, 'public')));
+
+sequelize.sync().then(() => {
+    console.log('Base de datos sincronizada');
+}).catch((error) => {
+    console.error('Error al sincronizar la base de datos:', error);
+});
 
 sequelize.sync().then(() => {
     console.log('Base de datos sincronizada');
