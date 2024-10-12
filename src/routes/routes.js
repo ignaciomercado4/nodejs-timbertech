@@ -36,7 +36,8 @@ router.get('/crear-paquete', (req, res) => {
     try {
         res.render('partials/paquetes/crear-paquete')
     } catch (error) {
-
+        console.error('Error al abrir vista crear-paquete:', error);
+        res.status(500).send('Error al abrir vista crear-paquete');
     }
 })
 
@@ -51,5 +52,18 @@ router.post('/crear-paquete', async (req, res) => {
         res.status(500).send('Error al crear el paquete');
     }
 });
+
+// registros
+router.get('/crear-registro', async (req, res) => {
+    try {
+        const paquetesExistentes = Paquete.findAll();
+        res.render('partials/registros/crear-registro', {
+            paquetes: paquetesExistentes
+        })
+    } catch (error) {
+        console.error('Error al abrir vista crear-registro:', error);
+        res.status(500).send('Error al abrir vista crear-registro');
+    }
+})
 
 export default router;
