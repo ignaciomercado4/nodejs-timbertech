@@ -56,7 +56,7 @@ router.post('/crear-paquete', async (req, res) => {
 // registros
 router.get('/crear-registro', async (req, res) => {
     try {
-        const paquetesExistentes = Paquete.findAll();
+        const paquetesExistentes = await Paquete.findAll();
         res.render('partials/registros/crear-registro', {
             paquetes: paquetesExistentes
         })
@@ -64,6 +64,6 @@ router.get('/crear-registro', async (req, res) => {
         console.error('Error al abrir vista crear-registro:', error);
         res.status(500).send('Error al abrir vista crear-registro');
     }
-})
+});
 
 export default router;

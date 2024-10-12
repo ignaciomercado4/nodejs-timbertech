@@ -4,12 +4,20 @@
   <div class="text-center">
     <h1 class="display-4 mb-4">Crear Registro</h1>
     {{#if paquetes}}
-      <form method="POST" action="" id="form-crear-registro" class="mb-4">
+      <form
+        method="POST"
+        action="/crear-registro"
+        id="form-crear-registro"
+        class="mb-4"
+      >
         <div class="mb-3">
           <label for="id_paquete" class="form-label">Paquete:</label>
           <select name="id_paquete">
             {{#each paquetes}}
-              
+              <option
+                value={{dataValues.id}}
+              >{{dataValues.date}}-{{dataValues.shift}}-{{dataValues.id}}</option>
+            {{/each}}
           </select>
         </div>
 
@@ -20,16 +28,6 @@
             class="form-control"
             name="name"
             placeholder="Ej: Pablo Pérez"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="package" class="form-label">Especie:</label>
-          <input
-            type="text"
-            class="form-control"
-            name="packet"
-            placeholder="Ej: 09-06-2024-T"
           />
         </div>
 
