@@ -12,7 +12,8 @@
       >
         <div class="mb-3">
           <label for="id_paquete" class="form-label">Paquete:</label>
-          <select name="id_paquete">
+          <select name="id_paquete" required>
+            <option value="">Seleccione un paquete</option>
             {{#each paquetes}}
               <option
                 value={{dataValues.id}}
@@ -22,19 +23,9 @@
         </div>
 
         <div class="mb-3">
-          <label for="name" class="form-label">Nombre del operario:</label>
-          <input
-            type="text"
-            class="form-control"
-            name="name"
-            placeholder="Ej: Pablo Pérez"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="thickness" class="form-label">Espesor de las tablas
+          <label for="espesor" class="form-label">Espesor de las tablas
             (pulgadas):</label>
-          <select class="form-select" name="thickness">
+          <select class="form-select" name="espesor">
             <option value="0.5">0.5"</option>
             <option value="1.0">1"</option>
             <option value="1.5">1.5"</option>
@@ -47,33 +38,33 @@
         </div>
 
         <div class="mb-3">
-          <label for="height" class="form-label">Largo de las tablas (metros):</label>
+          <label for="alto" class="form-label">Largo de las tablas (metros):</label>
           <input
             type="number"
             class="form-control"
-            name="height"
+            name="alto"
             placeholder="3.50"
             step="0.01"
           />
         </div>
 
         <div class="mb-3">
-          <label for="width" class="form-label">Ancho de las tablas (metros):</label>
+          <label for="ancho" class="form-label">Ancho de las tablas (metros):</label>
           <input
             type="number"
             class="form-control"
-            name="width"
+            name="ancho"
             placeholder="1.10"
             step="0.01"
           />
         </div>
 
         <div class="mb-3">
-          <label for="width" class="form-label">Especie:</label>
+          <label for="especie" class="form-label">Especie:</label>
           <input
             type="text"
             class="form-control"
-            name="width"
+            name="especie"
             placeholder="Ej: Guatambú"
           />
         </div>
