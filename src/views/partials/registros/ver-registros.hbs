@@ -1,39 +1,43 @@
-<div class="container mt-5">
+<div class="container-fluid mt-5">
   <h1 class="mb-4">Lista de Registros</h1>
 
   {{#if registros}}
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
-        <tr>
-          <th class="col-1">ID</th>
-          <th class="col-2">Paquete</th>
-          <th class="col-2">Espesor</th>
-          <th class="col-2">Largo</th>
-          <th class="col-2">Ancho</th>
-          <th class="col-2">Especie</th>
-          <th class="col-2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each registros}}
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
           <tr>
-            <td class="col-1">{{dataValues.id}}</td>
-            <td class="col-2">{{dataValues.id_paquete}}</td>
-            <td class="col-2">{{dataValues.espesor}}</td>
-            <td class="col-2">{{dataValues.largo}}</td>
-            <td class="col-2">{{dataValues.ancho}}</td>
-            <td class="col-2">{{dataValues.especie}}</td>
-            <td class="col-2">
-              <a href="" class="btn btn-sm btn-info">Ver</a>
-              <a href="" class="btn btn-sm btn-warning">Editar</a>
-              <button class="btn btn-sm btn-danger" onclick="">Eliminar</button>
-            </td>
+            <th class="col-1">ID</th>
+            <th class="col-2">Paquete</th>
+            <th class="col-1">Espesor</th>
+            <th class="col-2">Alto</th>
+            <th class="col-2">Ancho</th>
+            <th class="col-2">Especie</th>
+            <th class="col-2">Acciones</th>
           </tr>
-        {{/each}}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {{#each registros}}
+            <tr>
+              <td class="col-1">{{dataValues.id}}</td>
+              <td class="col-2 text-truncate">{{dataValues.id_paquete}}</td>
+              <td class="col-1">{{dataValues.espesor}}</td>
+              <td class="col-2">{{dataValues.alto}}</td>
+              <td class="col-2">{{dataValues.ancho}}</td>
+              <td class="col-2 text-truncate">{{dataValues.especie}}</td>
+              <td class="col-2">
+                <div class="btn-group" role="group">
+                  <a href="" class="btn btn-sm btn-info">Ver</a>
+                  <a href="" class="btn btn-sm btn-warning">Editar</a>
+                  <button class="btn btn-sm btn-danger">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
   {{else}}
     <p class="alert alert-info">No hay registros para mostrar.</p>
-    <a href="/crear-paquete">Crear un registro</a>
+    <a href="/crear-registro" class="btn btn-primary">Crear un registro</a>
   {{/if}}
 </div>
