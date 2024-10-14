@@ -4,7 +4,8 @@ import { join, dirname } from 'path';
 import morgan from "morgan";
 import { engine } from "express-handlebars";
 import { sequelize } from './database.js';
-import routes from './routes/routes.js';
+import paquetesRoutes from './routes/paquetes.routes.js';
+import registrosRoutes from './routes/registros.routes.js';
 
 // init
 const app = express();
@@ -27,7 +28,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // routes
-app.use(routes);
+app.use(paquetesRoutes);
+app.use(registrosRoutes);
 
 // public files
 app.use(express.static(join(__dirname, 'public')));
