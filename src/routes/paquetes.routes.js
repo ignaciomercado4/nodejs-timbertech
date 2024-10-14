@@ -1,3 +1,8 @@
+import express from 'express';
+import { Paquete } from '../models/Paquete.js';
+
+const router = express.Router();
+
 // paquetes
 
 router.get('/ver-paquetes', async (req, res) => {
@@ -40,3 +45,5 @@ router.post('/crear-paquete', async (req, res) => {
         res.status(500).send('Error al crear el paquete');
     }
 });
+
+export default router;

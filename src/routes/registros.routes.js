@@ -16,8 +16,15 @@ router.get('/', (req, res) => {
 router.get('/ver-registros', async (req, res) => {
     try {
         const registrosExistentes = await Registro.findAll();
+        const datosPaquetesPadre = await Promise.all(
+            registrosExistentes.map(async (registro) => {
+                return await Paquete.findByPk(registro.id_paquete);
+            })
+        );
+
         res.render('partials/registros/ver-registros', {
             registros: registrosExistentes,
+            datosPaquetesPadre: datosPaquetesPadre,
             helpers: {
                 json: function (context) {
                     return JSON.stringify(context, null, 2);

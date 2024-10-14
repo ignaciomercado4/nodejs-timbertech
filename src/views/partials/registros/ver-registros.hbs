@@ -19,7 +19,17 @@
           {{#each registros}}
             <tr>
               <td class="col-1">{{dataValues.id}}</td>
-              <td class="col-2 text-truncate">{{dataValues.id_paquete}}</td>
+             <td class="col-2">
+                {{#with (lookup ../datosPaquetesPadre @index)}}
+                  {{#if dataValues.date}}
+                    {{dataValues.date}}-{{dataValues.shift}}-{{dataValues.id}}
+                  {{else}}
+                    No date available
+                  {{/if}}
+                {{else}}
+                  Paquete not found
+                {{/with}}
+              </td>
               <td class="col-1">{{dataValues.espesor}}</td>
               <td class="col-2">{{dataValues.alto}}</td>
               <td class="col-2">{{dataValues.ancho}}</td>
