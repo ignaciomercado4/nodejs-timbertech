@@ -6,6 +6,7 @@ import { engine } from 'express-handlebars';
 import { sequelize } from './database.js';
 import paqueteRoutes from './routes/paquetes.routes.js';
 import registroRoutes from './routes/registros.routes.js';
+import authRoutes from './routes/auth.routes.js'
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -27,8 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // routes
+app.use('/api/auth', authRoutes);
 app.use(paqueteRoutes);
 app.use(registroRoutes);
+app.use(authRoutes);
 
 // public files
 app.use(express.static(join(__dirname, 'public')));

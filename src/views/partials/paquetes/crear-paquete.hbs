@@ -6,12 +6,12 @@
     <form method="POST" action="" id="form-crear-paquete" class="mb-4">
       <div class="mb-3">
         <label for="date" class="form-label">Fecha:</label>
-        <input type="date" class="form-control" name="date" />
+        <input type="date" class="form-control" name="date" required />
       </div>
 
       <div class="mb-3">
         <label for="shift" class="form-label">Turno:</label>
-        <select name="shift">
+        <select name="shift" required>
           <option value="M">Mañana</option>
           <option value="T">Tarde</option>
           <option value="N">Noche</option>

@@ -12,7 +12,7 @@
       >
         <div class="mb-3">
           <label for="id_paquete" class="form-label">Paquete:</label>
-          <select name="id_paquete" required>
+          <select name="id_paquete" id="id-paquete" required>
             <option value="">Seleccione un paquete</option>
             {{#each paquetes}}
               <option
@@ -25,7 +25,7 @@
         <div class="mb-3">
           <label for="espesor" class="form-label">Espesor de las tablas
             (pulgadas):</label>
-          <select class="form-select" name="espesor">
+          <select class="form-select" name="espesor" id="espesor" required>
             <option value="0.5">0.5"</option>
             <option value="1.0">1"</option>
             <option value="1.5">1.5"</option>
@@ -45,6 +45,8 @@
             name="alto"
             placeholder="3.50"
             step="0.01"
+            id="alto"
+            required
           />
         </div>
 
@@ -56,6 +58,8 @@
             name="ancho"
             placeholder="1.10"
             step="0.01"
+            id="ancho"
+            required
           />
         </div>
 
@@ -66,6 +70,8 @@
             class="form-control"
             name="especie"
             placeholder="Ej: Guatambú"
+            id="especie"
+            required
           />
         </div>
 
