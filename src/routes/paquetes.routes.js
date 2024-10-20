@@ -1,11 +1,12 @@
 import express from 'express';
 import { Paquete } from '../models/Paquete.js';
+import { verifyToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // paquetes
 
-router.get('/ver-paquetes', async (req, res) => {
+router.get('/ver-paquetes', verifyToken, async (req, res) => {
     try {
         const paquetesExistentes = await Paquete.findAll();
         res.render('partials/paquetes/ver-paquetes', {
@@ -34,7 +35,7 @@ router.get('/crear-paquete', (req, res) => {
     }
 })
 
-router.post('/crear-paquete', async (req, res) => {
+router.post('/crear-paquete', verifyToken, async (req, res) => {
     try {
         const { date, shift } = req.body;
         const nuevoPaquete = await Paquete.create({ date, shift });
