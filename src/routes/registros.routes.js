@@ -1,19 +1,20 @@
 import express from 'express';
 import { Paquete } from '../models/Paquete.js';
 import { Registro } from '../models/Registro.js';
+import { verifyToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // index
 
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
     res.render('index');
 });
 
 
 // registros
 
-router.get('/ver-registros', async (req, res) => {
+router.get('/ver-registros',verifyToken, async (req, res) => {
     try {
         const registrosExistentes = await Registro.findAll();
         const datosPaquetesPadre = await Promise.all(
@@ -40,7 +41,7 @@ router.get('/ver-registros', async (req, res) => {
     }
 });
 
-router.get('/crear-registro', async (req, res) => {
+router.get('/crear-registro',verifyToken, async (req, res) => {
     try {
         const paquetesExistentes = await Paquete.findAll();
         res.render('partials/registros/crear-registro', {
@@ -52,7 +53,7 @@ router.get('/crear-registro', async (req, res) => {
     }
 });
 
-router.post('/crear-registro', async (req, res) => {
+router.post('/crear-registro',verifyToken, async (req, res) => {
 
     console.log('Datos recibidos:', req.body);
     try {
