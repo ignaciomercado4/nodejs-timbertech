@@ -1,4 +1,3 @@
-// routes/auth.js
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
@@ -7,8 +6,13 @@ import { Usuario } from '../models/Usuario.js';
 const router = express.Router();
 const JWT_SECRET = 'TimberTechClaveJWTPrueba';
 
+// ruta de registro
 router.get('/registro', (req, res) => {
-    res.render('partials/usuarios/registro');
+    try {
+        res.render('partials/usuarios/formulario-registro');
+    } catch (error) {
+        console.log('Error mostrando formulario de registro.', error);
+    }
 });
 
 router.post('/registro', async (req, res) => {
@@ -17,8 +21,8 @@ router.post('/registro', async (req, res) => {
 
         const usuarioExistente = await Usuario.findOne({ where: { email } });
         if (usuarioExistente) {
-            return res.status(400).json({
-                message: 'El email ya está registrado'
+            return res.status(400).render('partials/usuarios/formulario-registro', {
+                error: 'El email ya está registrado'
             });
         }
 
@@ -37,22 +41,28 @@ router.post('/registro', async (req, res) => {
             { expiresIn: '24h' }
         );
 
-        res.status(201).json({
-            message: 'Usuario creado exitosamente',
-            token,
-            user: {
-                id: nuevoUsuario.id,
-                name: nuevoUsuario.name,
-                email: nuevoUsuario.email
-            }
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 24 * 60 * 60 * 1000
         });
+
+        res.redirect('/');
 
     } catch (error) {
         console.error('Error en registro:', error);
-        res.status(500).json({
-            message: 'Error al registrar usuario',
-            error: error.message
+        res.status(500).render('partials/usuarios/formulario-registro', {
+            error: 'Error al registrar usuario'
         });
+    }
+});
+
+// rutas de login
+router.get('/login', (req, res) => {
+    try {
+        res.render('partials/usuarios/formulario-login');
+    } catch (error) {
+        console.log('Error mostrando formulario de login.', error);
     }
 });
 
@@ -62,15 +72,15 @@ router.post('/login', async (req, res) => {
 
         const usuario = await Usuario.findOne({ where: { email } });
         if (!usuario) {
-            return res.status(400).json({
-                message: 'Email o contraseña incorrectos'
+            return res.status(400).render('partials/usuarios/formulario-login', {
+                error: 'Email o contraseña incorrectos'
             });
         }
 
         const passwordValida = await bcrypt.compare(password, usuario.password);
         if (!passwordValida) {
-            return res.status(400).json({
-                message: 'Email o contraseña incorrectos'
+            return res.status(400).render('partials/usuarios/formulario-login', {
+                error: 'Email o contraseña incorrectos'
             });
         }
 
@@ -80,64 +90,26 @@ router.post('/login', async (req, res) => {
             { expiresIn: '24h' }
         );
 
-        res.json({
-            message: 'Login exitoso',
-            token,
-            user: {
-                id: usuario.id,
-                name: usuario.name,
-                email: usuario.email
-            }
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 24 * 60 * 60 * 1000
         });
+
+        res.redirect('/');
 
     } catch (error) {
         console.error('Error en login:', error);
-        res.status(500).json({
-            message: 'Error al iniciar sesión',
-            error: error.message
+        res.status(500).render('partials/usuarios/formulario-login', {
+            error: 'Error al iniciar sesión'
         });
     }
 });
 
-const verificarToken = (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
-
-    if (!token) {
-        return res.status(401).json({
-            message: 'Acceso denegado - Token no proporcionado'
-        });
-    }
-
-    try {
-        const verificado = jwt.verify(token, JWT_SECRET);
-        req.user = verificado;
-        next();
-    } catch (error) {
-        res.status(401).json({
-            message: 'Token inválido o expirado'
-        });
-    }
-};
-
-router.get('/perfil', verificarToken, async (req, res) => {
-    try {
-        const usuario = await Usuario.findByPk(req.user.id, {
-            attributes: ['id', 'name', 'email']
-        });
-
-        if (!usuario) {
-            return res.status(404).json({
-                message: 'Usuario no encontrado'
-            });
-        }
-
-        res.json(usuario);
-    } catch (error) {
-        res.status(500).json({
-            message: 'Error al obtener perfil',
-            error: error.message
-        });
-    }
+// ruta de logout
+router.get('/logout', (req, res) => {
+    res.clearCookie('jwt');
+    res.redirect('/login');
 });
 
 export default router;

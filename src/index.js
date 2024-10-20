@@ -3,10 +3,11 @@ import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 import morgan from 'morgan';
 import { engine } from 'express-handlebars';
+import cookieParser from 'cookie-parser';
 import { sequelize } from './database.js';
 import paqueteRoutes from './routes/paquetes.routes.js';
 import registroRoutes from './routes/registros.routes.js';
-import authRoutes from './routes/auth.routes.js'
+import authRoutes from './routes/auth.routes.js';
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -26,16 +27,18 @@ app.set('view engine', '.hbs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-// routes
-app.use('/api/auth', authRoutes);
-app.use(paqueteRoutes);
-app.use(registroRoutes);
-app.use(authRoutes);
+app.use(cookieParser());
 
 // public files
 app.use(express.static(join(__dirname, 'public')));
 
+// routes 
+app.use('/api/auth', authRoutes);
+app.use('/', authRoutes);
+app.use(paqueteRoutes);
+app.use(registroRoutes);
+
+// database sync
 sequelize.sync().then(() => {
     console.log('Base de datos sincronizada');
 }).catch((error) => {
@@ -46,3 +49,5 @@ sequelize.sync().then(() => {
 app.listen(app.get('port'), () => {
     console.log('Server running on port', app.get('port'));
 });
+
+export default app;

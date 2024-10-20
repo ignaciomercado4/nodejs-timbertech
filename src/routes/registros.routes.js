@@ -14,7 +14,7 @@ router.get('/', verifyToken, (req, res) => {
 
 // registros
 
-router.get('/ver-registros',verifyToken, async (req, res) => {
+router.get('/ver-registros', verifyToken, async (req, res) => {
     try {
         const registrosExistentes = await Registro.findAll();
         const datosPaquetesPadre = await Promise.all(
@@ -41,7 +41,7 @@ router.get('/ver-registros',verifyToken, async (req, res) => {
     }
 });
 
-router.get('/crear-registro',verifyToken, async (req, res) => {
+router.get('/crear-registro', verifyToken, async (req, res) => {
     try {
         const paquetesExistentes = await Paquete.findAll();
         res.render('partials/registros/crear-registro', {
@@ -53,7 +53,7 @@ router.get('/crear-registro',verifyToken, async (req, res) => {
     }
 });
 
-router.post('/crear-registro',verifyToken, async (req, res) => {
+router.post('/crear-registro', verifyToken, async (req, res) => {
 
     console.log('Datos recibidos:', req.body);
     try {
