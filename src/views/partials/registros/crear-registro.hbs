@@ -1,83 +1,178 @@
-<article
-  class="d-flex justify-content-center align-items-center vh-100 bg-light"
->
-  <div class="text-center">
-    <h1 class="display-4 mb-4">Crear Registro</h1>
-    {{#if paquetes}}
-      <form
-        method="POST"
-        action="/crear-registro"
-        id="form-crear-registro"
-        class="mb-4"
-      >
-        <div class="mb-3">
-          <label for="id_paquete" class="form-label">Paquete:</label>
-          <select name="id_paquete" id="id-paquete" required>
-            <option value="">Seleccione un paquete</option>
-            {{#each paquetes}}
-              <option
-                value={{dataValues.id}}
-              >{{dataValues.date}}-{{dataValues.shift}}-{{dataValues.id}}</option>
-            {{/each}}
-          </select>
+<article class="min-vh-100 bg-light py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+          <div class="card-body p-4">
+            <h1 class="display-5 text-center mb-4">Crear Registro</h1>
+
+            {{#if paquetes}}
+              <form
+                method="POST"
+                action="/crear-registro"
+                id="form-crear-registro"
+              >
+                <div class="card bg-light mb-4">
+                  <div class="card-body">
+                    <h5 class="card-title mb-3">Información del Paquete</h5>
+                    <div class="mb-3">
+                      <label
+                        for="id_paquete"
+                        class="form-label"
+                      >Paquete:</label>
+                      <select
+                        name="id_paquete"
+                        id="id-paquete"
+                        class="form-select"
+                        required
+                      >
+                        <option value="">Seleccione un paquete</option>
+                        {{#each paquetes}}
+                          <option
+                            value={{dataValues.id}}
+                          >{{dataValues.date}}-{{dataValues.shift}}-{{dataValues.id}}</option>
+                        {{/each}}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card bg-light mb-4">
+                  <div class="card-body">
+                    <h5 class="card-title mb-3">Dimensiones</h5>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label for="espesor" class="form-label">Espesor
+                          (pulgadas):</label>
+                        <select
+                          class="form-select"
+                          name="espesor"
+                          id="espesor"
+                          required
+                        >
+                          <option value="0.5">0.5"</option>
+                          <option value="1.0">1"</option>
+                          <option value="1.5">1.5"</option>
+                          <option value="2.0">2"</option>
+                          <option value="2.5">2.5"</option>
+                          <option value="3.0">3"</option>
+                          <option value="3.5">3.5"</option>
+                          <option value="4.0">4.5"</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="ancho" class="form-label">Ancho (pulgadas):</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          name="ancho"
+                          placeholder="1.10"
+                          step="0.01"
+                          id="ancho"
+                          required
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="alto" class="form-label">Largo (pies):</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          name="alto"
+                          placeholder="3.50"
+                          step="0.01"
+                          id="alto"
+                          required
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label
+                          for="cantidad"
+                          class="form-label"
+                        >Cantidad:</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          name="cantidad"
+                          value="1"
+                          step="1"
+                          id="cantidad"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card bg-light mb-4">
+                  <div class="card-body">
+                    <h5 class="card-title mb-3">Cálculos</h5>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label
+                          for="total-metros-cubicos"
+                          class="form-label"
+                        >Total m³:</label>
+                        <div class="input-group">
+                          <input
+                            type="number"
+                            class="form-control"
+                            name="total-metros-cubicos"
+                            step="0.01"
+                            id="total-metros-cubicos"
+                            required
+                          />
+                          <span class="input-group-text">m³</span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label
+                          for="total-pies-tablares"
+                          class="form-label"
+                        >Total PT:</label>
+                        <div class="input-group">
+                          <input
+                            type="number"
+                            class="form-control"
+                            name="total-pies-tablares"
+                            step="0.01"
+                            id="total-pies-tablares"
+                            required
+                          />
+                          <span class="input-group-text">PT</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card bg-light mb-4">
+                  <div class="card-body">
+                    <h5 class="card-title mb-3">Información Adicional</h5>
+                    <div class="mb-3">
+                      <label for="especie" class="form-label">Especie:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="especie"
+                        placeholder="Ej: Guatambú"
+                        id="especie"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-dark btn-lg">
+                    <i class="bi bi-plus-circle me-2"></i>Crear registro
+                  </button>
+                </div>
+              </form>
+            {{/if}}
+          </div>
         </div>
-
-        <div class="mb-3">
-          <label for="espesor" class="form-label">Espesor de las tablas
-            (pulgadas):</label>
-          <select class="form-select" name="espesor" id="espesor" required>
-            <option value="0.5">0.5"</option>
-            <option value="1.0">1"</option>
-            <option value="1.5">1.5"</option>
-            <option value="2.0">2"</option>
-            <option value="2.5">2.5"</option>
-            <option value="3.0">3"</option>
-            <option value="3.5">3.5"</option>
-            <option value="4.0">4.5"</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label for="alto" class="form-label">Largo de las tablas (metros):</label>
-          <input
-            type="number"
-            class="form-control"
-            name="alto"
-            placeholder="3.50"
-            step="0.01"
-            id="alto"
-            required
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="ancho" class="form-label">Ancho de las tablas (metros):</label>
-          <input
-            type="number"
-            class="form-control"
-            name="ancho"
-            placeholder="1.10"
-            step="0.01"
-            id="ancho"
-            required
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="especie" class="form-label">Especie:</label>
-          <input
-            type="text"
-            class="form-control"
-            name="especie"
-            placeholder="Ej: Guatambú"
-            id="especie"
-            required
-          />
-        </div>
-
-        <button type="submit" class="btn btn-outline-dark btn-lg">Crear registro</button>
-      </form>
-    {{/if}}
-
+      </div>
+    </div>
   </div>
 </article>
+<script src="/js/volumeCalculations.js"></script>

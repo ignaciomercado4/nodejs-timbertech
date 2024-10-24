@@ -26,6 +26,14 @@ const Registro = sequelize.define('Registro', {
     especie: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    total_pies_tablares: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    total_metros_cubicos: {
+        type: DataTypes.FLOAT,
+        allowNull: false
     }
 });
 
