@@ -8,9 +8,11 @@
           <tr>
             <th class="col-1">ID</th>
             <th class="col-2">Paquete</th>
-            <th class="col-1">Espesor</th>
-            <th class="col-2">Alto</th>
-            <th class="col-2">Ancho</th>
+            <th class="col-1">Espesor (pulgadas)</th>
+            <th class="col-2">Ancho (pulgadas)</th>
+            <th class="col-2">Alto (pies)</th>
+            <th class="col-2">Total metros cúbicos</th>
+            <th class="col-2">Total pies tablares</th>
             <th class="col-2">Especie</th>
             <th class="col-2">Acciones</th>
           </tr>
@@ -31,8 +33,10 @@
                 {{/with}}
               </td>
               <td class="col-1">{{dataValues.espesor}}</td>
-              <td class="col-2">{{dataValues.alto}}</td>
               <td class="col-2">{{dataValues.ancho}}</td>
+              <td class="col-2">{{dataValues.alto}}</td>
+              <td class="col-2">{{dataValues.total_metros_cubicos}}</td>
+              <td class="col-2">{{dataValues.total_pies_tablares}}</td>
               <td class="col-2 text-truncate">{{dataValues.especie}}</td>
               <td class="col-2">
                 <div class="btn-group" role="group">
