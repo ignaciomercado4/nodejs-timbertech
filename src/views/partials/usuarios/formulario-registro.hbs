@@ -1,9 +1,20 @@
+<style>
+  .invalid-feedback { max-width: 40vh; } .form-control{ width: 40vh; max-width:
+  40vh;}
+</style>
+
 <article
   class="d-flex justify-content-center align-items-center vh-100 bg-light"
 >
   <div class="text-center">
     <h1 class="display-4 mb-4">Registro</h1>
-    <form action="/registro" method="POST" class="mb-4" id="registro-form">
+    <form
+      action="/registro"
+      method="POST"
+      class="mb-4"
+      id="registro-form"
+      novalidate
+    >
       <div class="mb-3">
         <label for="name" class="form-label">Nombre:</label>
         <input
@@ -14,7 +25,11 @@
           placeholder="Tu nombre"
           required
         />
+        <div class="invalid-feedback">
+          El nombre debe contener entre 4 y 50 caracteres y solo letras.
+        </div>
       </div>
+
       <div class="mb-3">
         <label for="email" class="form-label">Email:</label>
         <input
@@ -25,7 +40,11 @@
           placeholder="ejemplo@correo.com"
           required
         />
+        <div class="invalid-feedback">
+          Introduce un email válido.
+        </div>
       </div>
+
       <div class="mb-3">
         <label for="password" class="form-label">Contraseña:</label>
         <input
@@ -36,8 +55,12 @@
           placeholder="Tu contraseña"
           required
         />
-
+        <div class="invalid-feedback">
+          Contraseña inválida. (8 caracteres, 1 letra mayúscula, 1 minúscula, 1
+          número, 1 símbolo especial.)
+        </div>
       </div>
+
       <div class="mb-3">
         <label for="confirm-password" class="form-label">Confirmar Contraseña:</label>
         <input
@@ -48,16 +71,18 @@
           placeholder="Confirma tu contraseña"
           required
         />
+        <div class="invalid-feedback">
+          Las contraseñas deben coincidir.
+        </div>
       </div>
+
       <button
         type="button"
         class="btn btn-outline-dark btn-lg"
         id="submit-button"
       >Registrarse</button>
     </form>
-    <div id="errors">
-
-    </div>
+    <div id="errors"></div>
     <div class="mt-3">
       <a href="/login" class="text-dark">¿Ya tienes cuenta? Inicia sesión</a>
     </div>
