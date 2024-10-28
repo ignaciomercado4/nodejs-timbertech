@@ -54,6 +54,7 @@ router.post('/filtrar-paquetes', verifyToken, async (req, res) => {
         let paquetesFiltrados;
 
         if (filtrar_fecha_creacion && filtrar_turno) {
+
             paquetesFiltrados = await Paquete.findAll({
                 where: {
                     shift: filtrar_turno,
@@ -61,10 +62,12 @@ router.post('/filtrar-paquetes', verifyToken, async (req, res) => {
                 order: [['date', filtrar_fecha_creacion]],
             });
         } else if (filtrar_fecha_creacion && !filtrar_turno) {
+
             paquetesFiltrados = await Paquete.findAll({
                 order: [['date', filtrar_fecha_creacion]],
             });
         } else if (filtrar_turno && !filtrar_fecha_creacion) {
+
             paquetesFiltrados = await Paquete.findAll({
                 where: {
                     shift: filtrar_turno,

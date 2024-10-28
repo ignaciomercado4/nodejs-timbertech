@@ -1,56 +1,71 @@
 <div class="container mt-5">
-  <h1 class="mb-4">Lista de Paquetes</h1>
-  <div class="card mb-4 shadow-sm">
-    <div class="card-body">
-      <form
-        action="/filtrar-paquetes"
-        method="POST"
-        class="row g-3 align-items-end"
-      >
-        <div class="col-md-4">
-          <label for="filtrar_fecha_creacion" class="form-label">
-            <i class="bi bi-calendar3"></i>
-            Fecha de creación
-          </label>
-          <select
-            name="filtrar_fecha_creacion"
-            id="filtrar_fecha_creacion"
-            class="form-select"
-          >
-            <option value="">Seleccionar orden</option>
-            <option value="DESC">Más recientes primero</option>
-            <option value="ASC">Más antiguos primero</option>
-          </select>
-        </div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Lista de Paquetes</h1>
+    <button
+      class="btn btn-dark"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#filterSection"
+      aria-expanded="false"
+      aria-controls="filterSection"
+    >
+      Mostrar filtros
+    </button>
+  </div>
 
-        <div class="col-md-4">
-          <label for="filtrar_turno" class="form-label">
-            <i class="bi bi-clock"></i>
-            Turno
-          </label>
-          <select name="filtrar_turno" id="filtrar_turno" class="form-select">
-            <option value="">Todos los turnos</option>
-            <option value="M">Mañana</option>
-            <option value="T">Tarde</option>
-            <option value="N">Noche</option>
-          </select>
-        </div>
-
-        <div class="col-md-4">
-          <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary">
-              <i class="bi bi-funnel"></i>
-              Aplicar filtros
-            </button>
-            <form action="/quitar-filtros" method="GET" class="d-inline">
-              <button type="submit" class="btn btn-outline-secondary">
-                <i class="bi bi-x-circle"></i>
-                Quitar filtros
-              </button>
-            </form>
+  <div class="collapse mb-4" id="filterSection">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form
+          action="/filtrar-paquetes"
+          method="POST"
+          class="row g-3 align-items-end"
+        >
+          <div class="col-md-4">
+            <label for="filtrar_fecha_creacion" class="form-label">
+              <i class="bi bi-calendar3"></i>
+              Fecha de creación
+            </label>
+            <select
+              name="filtrar_fecha_creacion"
+              id="filtrar_fecha_creacion"
+              class="form-select"
+            >
+              <option value="">Seleccionar orden</option>
+              <option value="DESC">Más recientes primero</option>
+              <option value="ASC">Más antiguos primero</option>
+            </select>
           </div>
-        </div>
-      </form>
+
+          <div class="col-md-4">
+            <label for="filtrar_turno" class="form-label">
+              <i class="bi bi-clock"></i>
+              Turno
+            </label>
+            <select name="filtrar_turno" id="filtrar_turno" class="form-select">
+              <option value="">Todos los turnos</option>
+              <option value="M">Mañana</option>
+              <option value="T">Tarde</option>
+              <option value="N">Noche</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-funnel"></i>
+                Aplicar filtros
+              </button>
+              <form action="/quitar-filtros" method="GET" class="d-inline">
+                <button type="submit" class="btn btn-outline-secondary">
+                  <i class="bi bi-x-circle"></i>
+                  Quitar filtros
+                </button>
+              </form>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -86,7 +101,6 @@
                 <a href="" class="btn btn-sm btn-warning">Editar</a>
                 <button class="btn btn-sm btn-danger">Eliminar</button>
               </div>
-
             </td>
           </tr>
         {{/each}}
