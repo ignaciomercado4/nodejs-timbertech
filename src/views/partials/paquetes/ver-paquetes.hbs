@@ -1,34 +1,58 @@
 <div class="container mt-5">
   <h1 class="mb-4">Lista de Paquetes</h1>
-  <form action="/filtrar-paquetes">
-    <label for="filtrar-fecha-creacion">
-      Filtrar por fecha de creación:
-    </label>
-    <select name="filtrar-fecha-creacion" id="filtrar-fecha-creacion">
-      <option value="mas-recientes-primero">
-        Mas recientes primero
-      </option>
-      <option value="mas-antiguos-primero">
-        Mas antiguos primero
-      </option>
-    </select>
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <form
+        action="/filtrar-paquetes"
+        method="POST"
+        class="row g-3 align-items-end"
+      >
+        <div class="col-md-4">
+          <label for="filtrar_fecha_creacion" class="form-label">
+            <i class="bi bi-calendar3"></i>
+            Fecha de creación
+          </label>
+          <select
+            name="filtrar_fecha_creacion"
+            id="filtrar_fecha_creacion"
+            class="form-select"
+          >
+            <option value="">Seleccionar orden</option>
+            <option value="DESC">Más recientes primero</option>
+            <option value="ASC">Más antiguos primero</option>
+          </select>
+        </div>
 
-    <label for="filtrar-turno">
-      Filtrar por turno:
-    </label>
-    <select name="filtrar-turno" id="filtrar-turno">
-      <option value="M">
-        Mañana
-      </option>
-      <option value="T">
-        Tarde
-      </option>
-      <option value="N">
-        Noche
-      </option>
+        <div class="col-md-4">
+          <label for="filtrar_turno" class="form-label">
+            <i class="bi bi-clock"></i>
+            Turno
+          </label>
+          <select name="filtrar_turno" id="filtrar_turno" class="form-select">
+            <option value="">Todos los turnos</option>
+            <option value="M">Mañana</option>
+            <option value="T">Tarde</option>
+            <option value="N">Noche</option>
+          </select>
+        </div>
 
-    </select>
-  </form>
+        <div class="col-md-4">
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-funnel"></i>
+              Aplicar filtros
+            </button>
+            <form action="/quitar-filtros" method="GET" class="d-inline">
+              <button type="submit" class="btn btn-outline-secondary">
+                <i class="bi bi-x-circle"></i>
+                Quitar filtros
+              </button>
+            </form>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
   {{#if paquetes}}
     <table class="table table-striped table-hover">
