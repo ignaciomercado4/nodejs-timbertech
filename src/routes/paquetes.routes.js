@@ -5,7 +5,6 @@ import { verifyToken } from '../middleware/auth.js';
 const router = express.Router();
 
 // paquetes
-
 router.get('/ver-paquetes', verifyToken, async (req, res) => {
     try {
         const paquetesExistentes = await Paquete.findAll();
@@ -33,12 +32,18 @@ router.get('/crear-paquete', (req, res) => {
         console.error('Error al abrir vista crear-paquete:', error);
         res.status(500).send('Error al abrir vista crear-paquete');
     }
-})
+});
 
 router.post('/crear-paquete', verifyToken, async (req, res) => {
     try {
         const { date, shift } = req.body;
-        const nuevoPaquete = await Paquete.create({ date, shift });
+        const user = req.user;
+        const nuevoPaquete = await Paquete.create({
+            user_id: user.id,
+            user_email: user.email,
+            date,
+            shift
+        });
         console.log('Nuevo paquete creado:', JSON.stringify(nuevoPaquete, null, 2));
         res.redirect('/ver-paquetes');
     } catch (error) {
