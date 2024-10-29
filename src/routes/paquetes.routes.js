@@ -37,10 +37,14 @@ router.get('/crear-paquete', (req, res) => {
 router.post('/crear-paquete', verifyToken, async (req, res) => {
     try {
         const { date, shift } = req.body;
-        const user = req.user;
+        const userId = Number(req.user.id);
+        const userEmail = String(req.user.email);
+
+        console.log(userId, userEmail)
+
         const nuevoPaquete = await Paquete.create({
-            user_id: user.id,
-            user_email: user.email,
+            user_id: userId,
+            user_email: userEmail,
             date,
             shift
         });

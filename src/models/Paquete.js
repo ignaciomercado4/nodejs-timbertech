@@ -13,11 +13,7 @@ const Paquete = sequelize.define('Paquete', {
     },
     user_email: {
         type: DataTypes.STRING,
-        allowNull: false,
-        references: {
-            model: Usuario,
-            key: 'email',
-        }
+        allowNull: false
     },
     date: {
         type: DataTypes.DATEONLY,

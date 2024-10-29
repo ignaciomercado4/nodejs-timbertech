@@ -74,7 +74,7 @@
       <thead class="table-dark">
         <tr>
           <th class="col-1">ID</th>
-          <th class="col-1">ID usuario</th>
+          <th class="col-1">Usuario</th>
           <th class="col-2">Fecha</th>
           <th class="col-2">Turno</th>
           <th class="col-2">Acciones</th>
@@ -84,7 +84,7 @@
         {{#each paquetes}}
           <tr>
             <td class="col-1">{{dataValues.id}}</td>
-            <td class="col-1">{{dataValues.user_id}}</td>
+            <td class="col-1">{{dataValues.user_email}}</td>
             <td class="col-2">{{dataValues.date}}</td>
             <td class="col-2">
               {{#if (eq dataValues.shift "M")}}
