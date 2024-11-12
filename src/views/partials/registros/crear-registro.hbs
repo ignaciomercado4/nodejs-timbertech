@@ -28,9 +28,11 @@
                       >
                         <option value="">Seleccione un paquete</option>
                         {{#each paquetes}}
-                          <option
-                            value={{dataValues.id}}
-                          >{{dataValues.date}}-{{dataValues.shift}}-{{dataValues.id}}</option>
+                          <option value={{dataValues.id}}>{{dataValues.date}}
+                            | Turno:
+                            {{dataValues.shift}}
+                            | ID:
+                            {{dataValues.id}}</option>
                         {{/each}}
                       </select>
                     </div>

@@ -1,0 +1,77 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Detalles del Paquete #{{paquete.dataValues.id}}</h1>
+    <a href="/" class="btn btn-secondary">
+      <i class="bi bi-arrow-left"></i>
+      Volver
+    </a>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Información del Paquete</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <p><strong>Usuario:</strong> {{paquete.dataValues.user_email}}</p>
+        </div>
+        <div class="col-md-4">
+          <p><strong>Fecha:</strong> {{paquete.dataValues.date}}</p>
+        </div>
+        <div class="col-md-4">
+          <p>
+            <strong>Turno:</strong>
+            {{#if (eq paquete.dataValues.shift "M")}}
+              Mañana
+            {{else if (eq paquete.dataValues.shift "T")}}
+              Tarde
+            {{else if (eq paquete.dataValues.shift "N")}}
+              Noche
+            {{/if}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Registros del Paquete</h5>
+    </div>
+    <div class="card-body">
+      {{#if registros.length}}
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th class="col-1">Espesor (pulgadas)</th>
+                <th class="col-2">Ancho (pulgadas)</th>
+                <th class="col-2">Alto (pies)</th>
+                <th class="col-2">Total metros cúbicos</th>
+                <th class="col-2">Total pies tablares</th>
+                <th class="col-2">Especie</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each registros}}
+                <tr>
+                  <td class="col-1">{{dataValues.espesor}}</td>
+                  <td class="col-2">{{dataValues.ancho}}</td>
+                  <td class="col-2">{{dataValues.alto}}</td>
+                  <td class="col-2">{{dataValues.total_metros_cubicos}}</td>
+                  <td class="col-2">{{dataValues.total_pies_tablares}}</td>
+                  <td class="col-2 text-truncate">{{dataValues.especie}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{else}}
+        <div class="alert alert-info">
+          No hay registros asociados a este paquete.
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

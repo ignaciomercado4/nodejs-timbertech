@@ -1,5 +1,6 @@
 import express from 'express';
 import { Paquete } from '../models/Paquete.js';
+import { Registro } from '../models/Registro.js';
 import { verifyToken } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -123,6 +124,38 @@ router.get('/quitar-filtros', verifyToken, async (req, res) => {
     } catch (error) {
         console.error('Error al quitar filtros:', error);
         res.status(500).send('Error al quitar filtros');
+    }
+});
+
+router.get('/paquete/:id', async (req, res) => {
+    try {
+        const paqueteId = req.params.id;
+
+        const paquete = await Paquete.findByPk(paqueteId);
+
+        const registrosCoincidentes = await Registro.findAll({
+            where: {
+                id_paquete: paqueteId,
+            },
+        });
+
+        res.render('partials/paquetes/detalle-paquete', {
+            paquete: paquete,
+            registros: registrosCoincidentes,
+            helpers: {
+                json: function (context) {
+                    return JSON.stringify(context, null, 2);
+                },
+                eq: function (v1, v2) {
+                    return v1 === v2;
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error al obtener detalles del paquete:', error);
+        res.status(500).render('error', {
+            message: 'Error al cargar los detalles del paquete'
+        });
     }
 });
 
