@@ -102,4 +102,21 @@ router.post('/crear-registro', verifyToken, async (req, res) => {
     }
 });
 
+router.get('/eliminar-registro/:id', verifyToken, async (req, res) => {
+    try {
+        const registroID = req.params.id;
+
+        await Registro.destroy({
+            where: {
+                id: registroID,
+            },
+        });
+
+        res.redirect('/ver-registros');
+    } catch (error) {
+        console.error('Error al eliminar registro:', error);
+        res.status(500).send('Error al eliminar registro.');
+    }
+});
+
 export default router;
