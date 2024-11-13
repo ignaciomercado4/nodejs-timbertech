@@ -6,17 +6,18 @@ import { verifyToken } from '../middleware/auth.js';
 const router = express.Router();
 
 // index
-
 router.get('/', verifyToken, (req, res) => {
     res.render('index');
 });
 
 
 // registros
-
 router.get('/ver-registros', verifyToken, async (req, res) => {
     try {
         const registrosExistentes = await Registro.findAll();
+        const idsPaquetes = await Paquete.findAll({
+            attributes: ['id'],
+        });
         const datosPaquetesPadre = await Promise.all(
             registrosExistentes.map(async (registro) => {
                 return await Paquete.findByPk(registro.id_paquete);
@@ -26,6 +27,7 @@ router.get('/ver-registros', verifyToken, async (req, res) => {
         res.render('partials/registros/ver-registros', {
             registros: registrosExistentes,
             datosPaquetesPadre: datosPaquetesPadre,
+            idsPaquetes: idsPaquetes,
             helpers: {
                 json: function (context) {
                     return JSON.stringify(context, null, 2);
@@ -104,11 +106,11 @@ router.post('/crear-registro', verifyToken, async (req, res) => {
 
 router.get('/eliminar-registro/:id', verifyToken, async (req, res) => {
     try {
-        const registroID = req.params.id;
+        const registroId = req.params.id;
 
         await Registro.destroy({
             where: {
-                id: registroID,
+                id: registroId,
             },
         });
 
@@ -118,5 +120,50 @@ router.get('/eliminar-registro/:id', verifyToken, async (req, res) => {
         res.status(500).send('Error al eliminar registro.');
     }
 });
+
+
+router.post('/filtrar-registros', verifyToken, async (req, res) => {
+    try {
+        const { espesor, ancho, alto, especie, id_paquete } = req.body;
+
+        const filtrosRegistro = {};
+        if (espesor) filtrosRegistro.espesor = espesor;
+        if (ancho) filtrosRegistro.ancho = ancho;
+        if (alto) filtrosRegistro.alto = alto;
+        if (especie) filtrosRegistro.especie = especie;
+        if (id_paquete) filtrosRegistro.id_paquete = id_paquete;
+
+        const registrosFiltrados = await Registro.findAll({
+            where: filtrosRegistro
+        });
+
+        const datosPaquetesPadre = await Promise.all(
+            registrosFiltrados.map(async (registro) => {
+                return await Paquete.findByPk(registro.id_paquete);
+            })
+        );
+
+        res.render('partials/registros/ver-registros', {
+            registros: registrosFiltrados,
+            datosPaquetesPadre: datosPaquetesPadre,
+            helpers: {
+                json: function (context) {
+                    return JSON.stringify(context, null, 2);
+                },
+                eq: function (v1, v2) {
+                    return v1 === v2;
+                }
+            }
+        });
+
+        console.log("Registros filtrados:", registrosFiltrados);
+
+    } catch (error) {
+        console.error('Error al aplicar filtros a los registros:', error);
+        res.status(500).send('Error al aplicar filtros a los registros');
+    }
+});
+
+
 
 export default router;

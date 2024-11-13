@@ -159,4 +159,25 @@ router.get('/paquete/:id', async (req, res) => {
     }
 });
 
+
+router.get('/eliminar-paquete/:id', verifyToken, async (req, res) => {
+    try {
+        const paqueteId = req.params.id;
+
+        await Registro.destroy({
+            where: { id_paquete: paqueteId },
+        });
+
+        await Paquete.destroy({
+            where: { id: paqueteId },
+        });
+
+        res.redirect('/ver-paquetes');
+    } catch (error) {
+        console.error('Error al eliminar registro:', error);
+        res.status(500).send('Error al eliminar registro.');
+    }
+});
+
+
 export default router;

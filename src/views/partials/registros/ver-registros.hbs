@@ -22,7 +22,7 @@
   <div class="collapse mb-4" id="filterSection">
     <div class="card shadow-sm">
       <div class="card-body">
-        <form action="/filtrar-registros" method="GET" class="row g-3">
+        <form action="/filtrar-registros" method="POST" class="row g-3">
           <div class="col-md-2">
             <label for="espesor" class="form-label">Espesor (pulg)</label>
             <input 
@@ -60,21 +60,32 @@
             >
           </div>
           <div class="col-md-3">
-            <label for="usuario" class="form-label">Usuario</label>
-            <input 
+            <label for="especie" class="form-label">Especie</label>
+             <input 
               type="text" 
               class="form-control" 
-              id="usuario" 
-              name="usuario" 
-              placeholder="Email del usuario"
+              id="especie" 
+              name="especie" 
+              placeholder="Ej: Quebracho"
             >
+          </div>
+          <div class="col-md-3">
+            <label for="id_paquete" class="form-label">Paquete</label>
+            <select name="id_paquete" class="form-control">
+              <option value="" selected></option>
+              {{#each idsPaquetes}}
+                <option value={{dataValues.id}}>
+                  {{dataValues.id}}
+                </option>
+            {{/each}}
+            </select>
           </div>
           <div class="col-md-3 d-flex align-items-end">
             <div class="d-flex gap-2">
               <button type="submit" class="btn btn-primary">
                 <i class="bi bi-search"></i> Buscar
               </button>
-              <a href="/registros" class="btn btn-outline-secondary">
+              <a href="/ver-registros" class="btn btn-outline-secondary">
                 <i class="bi bi-x-circle"></i> Limpiar
               </a>
             </div>
@@ -91,7 +102,7 @@
           <table class="table table-hover mb-0">
             <thead class="table-dark">
               <tr>
-                <th class="px-3">ID</th>
+                
                 <th>Paquete</th>
                 <th>Usuario</th>
                 <th>Espesor (pulg)</th>
@@ -106,28 +117,25 @@
             <tbody>
               {{#each registros}}
                 <tr>
-                  <td class="px-3">{{dataValues.id}}</td>
                   <td>
-                    {{#with (lookup ../datosPaquetesPadre @index)}}
-                      {{#if dataValues.date}}
-                        <span class="badge bg-secondary">
-                          {{dataValues.date}}-{{dataValues.shift}}-{{dataValues.id}}
-                        </span>
-                      {{else}}
-                        <span class="badge bg-danger">Sin paquete</span>
-                      {{/if}}
-                    {{else}}
-                      <span class="badge bg-warning">No encontrado</span>
-                    {{/with}}
+                    <span class="badge bg-secondary">
+                      {{dataValues.id_paquete}}
+                    </span>
                   </td>
                   <td>
                     {{#with (lookup ../datosPaquetesPadre @index)}}
                       {{dataValues.user_email}}
                     {{/with}}
                   </td>
-                  <td>{{dataValues.espesor}}</td>
-                  <td>{{dataValues.ancho}}</td>
-                  <td>{{dataValues.alto}}</td>
+                  <td>
+                    {{dataValues.espesor}}
+                    </td>
+                  <td>{{dataValues.ancho}}
+
+                  </td>
+                  <td>
+                    {{dataValues.alto}}
+                    </td>
                   <td>
                     <span class="badge bg-info text-dark">
                       {{dataValues.total_metros_cubicos}}
